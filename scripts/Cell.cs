@@ -3,9 +3,7 @@ using System;
 
 public abstract class Cell
 {
-    private Vector2I _textureCord = Vector2I.Zero;
-
-
+    protected Vector2I _textureCord = new Vector2I(0,0);
     public abstract (CellData newState, int scoreDelta) Execute(CellData self,
         ReadOnlySpan<CellData> neighbors,
         Vector2I position,

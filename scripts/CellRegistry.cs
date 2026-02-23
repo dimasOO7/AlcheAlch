@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public enum CellType : int
+public enum CellTypes : int
 {
     Empty = 0,
     Fire = 1,
@@ -17,8 +17,8 @@ public class CellRegistry
 
     public CellRegistry()
     {
-        _behaviors[(int)CellType.Empty] = new EmptyCell();
+        _behaviors[(int)CellTypes.Empty] = new EmptyCell();
     }
 
-    public Cell Get(CellType type) => _behaviors[(int)type] ?? EmptyCell.Instance;
+    public Cell Get(CellTypes type) => _behaviors[(int)type] ?? EmptyCell.Instance;
 }
