@@ -23,8 +23,8 @@ public class GridData
 
     public CellData[] GetNeighbors(int x, int y)
     {
-        int[] dx = {1,0,-1,1,-1,1,-1,1};
-        int[] dy = {1,0,-1,1,-1,-1,1,1};
+        int[] dx = {1,0,-1,0,1,-1,1,-1};
+        int[] dy = {0,1,0,-1,1,1,-1,-1};
 
 
         CellData[] neighbors = new CellData[8];
