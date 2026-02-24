@@ -13,12 +13,17 @@ public sealed class WaterCell : Cell
 
     public override (CellData, int) Execute(CellData self, ReadOnlySpan<CellData> n, Vector2I pos, GridData g)
     {
-        for (int i = 0; i < 8;i++)
+        byte poisoning = 0;
+        for (int i = 0; i < 4;i++)
         {
-            if(n[i].Type == CellTypes.Acid && GD.Randf() <= acidConvertChance)
+            if(n[i].Type == CellType.Acid)
             {
-                return (self with {Type = CellTypes.Acid},acidConvertScore);
+                poisoning++;
             }
+        }
+        if(GD.Randf() <= acidConvertChance * poisoning)
+        {
+            return (self with {Type = CellType.Acid},self.Owner > 0 ? acidConvertScore : 0);
         }
         return (self,0);
     }

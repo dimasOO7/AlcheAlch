@@ -1,0 +1,118 @@
+using Godot;
+using System;
+
+public partial class GameManager : Node2D
+{
+    [Export] public int GridWidth = 80;
+    [Export] public int GridHeight = 50;
+    [Export] public int CellSize = 32;
+    [Export] public TileMapLayer tileMap;
+    [Export] public TileMapLayer ownerMap;
+    [Export] public Camera2D camera;
+
+    [Export] public int startScore = 10;
+    
+    [Signal]
+    public delegate void ScoreChangedSignalEventHandler(int score, int delta);
+
+    private int score;
+
+    public int Score
+    {
+        get
+        {
+            return score;
+        }
+        set
+        {
+            EmitSignal(SignalName.ScoreChangedSignal,value,value - score);
+            score = value;
+        }
+    }
+
+    [Export] public int playerStartZone = 3;
+
+    private GridData grid;
+    private CellRegistry registry;
+
+    private RandomNumberGenerator rng;
+
+    public override void _Ready()
+    {
+        base._Ready();
+
+        Score = startScore;
+
+        grid = new GridData(GridWidth,GridHeight);
+        registry = new CellRegistry();
+
+        rng = new RandomNumberGenerator();
+        InitializeRandomGrid();
+
+        camera.GlobalPosition = new Vector2(GridWidth * CellSize / 2,GridHeight * CellSize / 2);
+        camera.LimitLeft = 0;
+        camera.LimitRight = CellSize * GridWidth;
+        camera.LimitTop = 0;
+        camera.LimitBottom = CellSize * GridHeight;
+
+        RenderAll();
+    }
+    public override void _Input(InputEvent @event)
+    {
+        if (@event is InputEventKey keyEvent && keyEvent.Pressed && keyEvent.Keycode == Key.Space)
+        {
+            Tick();
+        }
+    }
+
+    private void Tick()
+    {
+        int delta = 0;
+        for (int y = 0; y < GridHeight; y++)
+        for (int x = 0; x < GridWidth; x++)
+        {
+            int idx = y * GridWidth + x;
+            CellData self = grid.Current[idx];
+
+            CellData[] neighbors = grid.GetNeighbors(x,y);
+
+            Cell  behavior = registry.Get(self.Type);
+            var (newState, scoreDelta) = behavior.Execute(self, neighbors, new Vector2I(x, y), grid);
+            grid.Next[idx] = newState;
+            delta += scoreDelta;
+        }
+        (grid.Current, grid.Next) = (grid.Next, grid.Current);
+
+        Score += delta;
+        RenderAll();
+    }
+
+    private void InitializeRandomGrid()
+    {
+        for (int y = 0; y < GridHeight; y++)
+        for (int x = 0; x < GridWidth; x++)
+        {
+            CellType type = (CellType) rng.RandiRange(1, 5);
+            if (type == CellType.Fire && rng.Randf() > 0.3f) type = CellType.Soil;
+
+            grid[x, y] = new CellData { Type = type, Owner = 0 };
+        }
+        for (int y = GridHeight/2 - playerStartZone / 2 - playerStartZone % 2;y < GridHeight/2 + playerStartZone % 2; y++)
+        for (int x = GridWidth/2 - playerStartZone / 2 - playerStartZone % 2;x < GridWidth/2 + playerStartZone % 2; x++)
+            {
+                grid[x, y] = new CellData { Type = (CellType) rng.RandiRange(3, 4), Owner = 1 };
+            }
+    }
+
+    private void RenderAll()
+    {
+        for (int y = 0; y < GridHeight; y++)
+        for (int x = 0; x < GridWidth; x++)
+        {
+            CellData cell = grid[x, y];
+            Cell behavior = registry.Get(cell.Type);
+            tileMap.SetCell(new Vector2I(x, y), 0, behavior.GetTextureCord(cell));
+            ownerMap.SetCell(new Vector2I(x, y), 0, new Vector2I(cell.Owner,0));
+        }
+    }
+}

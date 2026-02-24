@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://d4bjsenmtga3a"]
+
+[ext_resource type="Script" uid="uid://vt3umbfu7jvh" path="res://interface/hud/ScoreLabel.cs" id="1_cj6bh"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hjup0"]
+font_size = 24
+
+[node name="hud" type="Control" unique_id=1914137822]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScoreLabel" type="Label" parent="." unique_id=337358828]
+layout_mode = 0
+offset_right = 1000.0
+offset_bottom = 36.0
+text = "очки: 0"
+label_settings = SubResource("LabelSettings_hjup0")
+script = ExtResource("1_cj6bh")
+positiveColor = Color(0, 0.7647059, 0, 1)
+negativeColor = Color(0.77254903, 0, 0, 1)
+neutralColor = Color(0.46519262, 0.46519262, 0.46519262, 1)

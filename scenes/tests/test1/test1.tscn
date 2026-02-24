@@ -1,5 +1,29 @@
-[gd_scene format=3 uid="uid://b3sevisybcmjj"]
+[gd_scene format=4 uid="uid://b3sevisybcmjj"]
 
-[node name="main" type="Node2D" unique_id=1282595482]
+[ext_resource type="TileSet" uid="uid://dd41qu0tyqyek" path="res://assets/tilesets/basictileset/basictileset.tres" id="1_83rbd"]
+[ext_resource type="Script" uid="uid://dt3urb1sjtayk" path="res://scripts/GameManager.cs" id="1_efk5x"]
+[ext_resource type="TileSet" uid="uid://dw4qevnnre3bp" path="res://assets/tilesets/ownerstileset/ownerstileset.tres" id="2_efk5x"]
+[ext_resource type="PackedScene" uid="uid://d4bjsenmtga3a" path="res://interface/hud/hud.tscn" id="4_k4bsq"]
+[ext_resource type="Script" uid="uid://dnct4lgedjjjw" path="res://scripts/Camera.cs" id="4_s6uua"]
 
-[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1100957044]
+[node name="main" type="Node2D" unique_id=1282595482 node_paths=PackedStringArray("tileMap", "ownerMap", "camera")]
+script = ExtResource("1_efk5x")
+GridWidth = 100
+GridHeight = 100
+tileMap = NodePath("MainMap")
+ownerMap = NodePath("OwnerMap")
+camera = NodePath("Camera2D")
+
+[node name="MainMap" type="TileMapLayer" parent="." unique_id=1100957044]
+tile_set = ExtResource("1_83rbd")
+
+[node name="OwnerMap" type="TileMapLayer" parent="." unique_id=693983663]
+tile_map_data = PackedByteArray("AAABAAMAAgABAAAAAAACAAQAAgABAAAAAAACAAUAAgABAAAAAAADAAUAAgABAAAAAAAEAAYAAgABAAAAAAAFAAYAAgABAAAAAAAGAAYAAgABAAAAAAAHAAcAAgABAAAAAAAIAAcAAgABAAAAAAAJAAcAAgABAAAAAAAKAAgAAgABAAAAAAALAAgAAgABAAAAAAAMAAgAAgABAAAAAAANAAgAAgABAAAAAAAOAAgAAgABAAAAAAAOAAcAAgABAAAAAAANAAcAAgABAAAAAAAMAAcAAgABAAAAAAALAAcAAgABAAAAAAAKAAYAAgABAAAAAAAJAAYAAgABAAAAAAAIAAUAAgABAAAAAAAHAAUAAgABAAAAAAAGAAQAAgABAAAAAAAFAAMAAgABAAAAAAAEAAIAAgABAAAAAAADAAIAAgABAAAAAAACAAIAAgABAAAAAAABAAIAAgABAAAAAAABAAQAAgABAAAAAAABAAUAAgABAAAAAAACAAYAAgABAAAAAAACAAcAAgABAAAAAAADAAcAAgABAAAAAAADAAgAAgABAAAAAAAEAAgAAgABAAAAAAAEAAkAAgABAAAAAAAFAAkAAgABAAAAAAAGAAkAAgABAAAAAAAHAAkAAgABAAAAAAAHAAgAAgABAAAAAAAJAAUAAgABAAAAAAAKAAUAAgABAAAAAAAKAAQAAgABAAAAAAAJAAQAAgABAAAAAAAIAAQAAgABAAAAAAAHAAQAAgABAAAAAAAFAAUAAgABAAAAAAAEAAUAAgABAAAAAAADAAYAAgABAAAAAAABAAcAAgABAAAAAAAAAAgAAgABAAAAAAAAAAkAAgABAAAAAAABAAkAAgABAAAAAAACAAkAAgABAAAAAAADAAkAAgABAAAAAAAIAAgAAgABAAAAAAALAAUAAgABAAAAAAAMAAUAAgABAAAAAAANAAUAAgABAAAAAAAMAAYAAgABAAAAAAALAAkAAgABAAAAAAALAAoAAgABAAAAAAAKAAsAAgABAAAAAAAJAAwAAgABAAAAAAAIAA0AAgABAAAAAAAHAA4AAgABAAAAAAAHAA0AAgABAAAAAAAGAA0AAgABAAAAAAAGAAwAAgABAAAAAAAFAAwAAgABAAAAAAAFAAsAAgABAAAAAAAFAAoAAgABAAAAAAAGAAgAAgABAAAAAAAJAAgAAgABAAAAAAAEAAoAAgABAAAAAAADAAoAAgABAAAAAAACAAoAAgABAAAAAAABAAoAAgABAAAAAAD//wgAAgABAAAAAAD+/wgAAgABAAAAAAD+/wcAAgABAAAAAAD//wcAAgABAAAAAAAAAAcAAgABAAAAAAABAAYAAgABAAAAAAACAAgAAgABAAAAAAD//wkAAgABAAAAAAABAAgAAgABAAAAAAAEAAcAAgABAAAAAAAFAAcAAgABAAAAAAAGAAcAAgABAAAAAAAIAAYAAgABAAAAAAAGAAoAAgABAAAAAAAEAAsAAgABAAAAAAADAAsAAgABAAAAAAA=")
+tile_set = ExtResource("2_efk5x")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=223268806]
+script = ExtResource("4_s6uua")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=562826729]
+
+[node name="hud" parent="CanvasLayer" unique_id=1914137822 instance=ExtResource("4_k4bsq")]

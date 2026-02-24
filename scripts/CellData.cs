@@ -1,4 +1,4 @@
 using Godot;
 using System;
 
-public readonly record struct CellData(CellTypes Type, byte Owner);
+public record struct CellData(CellType Type, byte Owner, byte state);
