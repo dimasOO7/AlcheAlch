@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public sealed class GrassCell : Cell
 {
@@ -12,6 +13,9 @@ public sealed class GrassCell : Cell
     public GrassCell()
     {
         _textureCord = new Vector2I(2,0);
+        cellActions = new CellAction[]{new cellTransform(CellType.Fire,6,new Vector2I(0,0)),
+        new cellTransform(CellType.Soil,-4,new Vector2I(3,0),"собрать траву")
+        };
     }
 
     public override (CellData, int) Execute(CellData self, ReadOnlySpan<CellData> n, Vector2I pos, GridData g)

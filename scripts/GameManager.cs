@@ -32,8 +32,8 @@ public partial class GameManager : Node2D
 
     [Export] public int playerStartZone = 3;
 
-    private GridData grid;
-    private CellRegistry registry;
+    public GridData grid;
+    public CellRegistry registry;
 
     private RandomNumberGenerator rng;
 
@@ -63,6 +63,11 @@ public partial class GameManager : Node2D
         {
             Tick();
         }
+    }
+
+    public Cell GetBehavior(Vector2I pos)
+    {
+        return registry.Get(grid[pos.X,pos.Y].Type);
     }
 
     private void Tick()
@@ -102,6 +107,22 @@ public partial class GameManager : Node2D
             {
                 grid[x, y] = new CellData { Type = (CellType) rng.RandiRange(3, 4), Owner = 1 };
             }
+    }
+    private void RenderTile(Vector2I pos)
+    {
+        CellData cell = grid[pos.X,pos.Y];
+        Cell behavior = registry.Get(cell.Type);
+        tileMap.SetCell(pos, 0, behavior.GetTextureCord(cell));
+        ownerMap.SetCell(pos, 0, new Vector2I(cell.Owner,0));
+    }
+
+    public void UseAction(CellAction action, Vector2I pos)
+    {
+        var (newState, scoreDelta) = action.Execute(grid[pos.X,pos.Y],pos,grid);
+        GD.Print(newState);
+        grid[pos.X,pos.Y] = newState;
+        Score -= scoreDelta;
+        RenderTile(pos);
     }
 
     private void RenderAll()

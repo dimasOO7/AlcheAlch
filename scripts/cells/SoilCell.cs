@@ -11,6 +11,10 @@ public sealed class SoilCell : Cell
     public SoilCell()
     {
         _textureCord = new Vector2I(3,0);
+        cellActions = new CellAction[]{new cellTransform(CellType.Fire,16,new Vector2I(0,0)),
+        new cellTransform(CellType.Water,8,new Vector2I(1,0)),
+        new cellTransform(CellType.Grass,8,new Vector2I(2,0))
+        };
     }
 
     public override (CellData, int) Execute(CellData self, ReadOnlySpan<CellData> n, Vector2I pos, GridData g)

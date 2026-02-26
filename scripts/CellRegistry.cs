@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public enum CellType : int
+public enum CellType : int //новые клетки сюда добавлять
 {
     Empty = 0,
     Fire = 1,
@@ -24,7 +24,7 @@ public class CellRegistry
         _behaviors[(int)CellType.Grass] = new GrassCell();
         _behaviors[(int)CellType.Soil] = new SoilCell();
         _behaviors[(int)CellType.Acid] = new AcidCell();
-        _behaviors[(int)CellType.PoisonedSoil] = new PoisonedSoilCell();
+        _behaviors[(int)CellType.PoisonedSoil] = new PoisonedSoilCell(); //новые клетки сюда добавлять
     }
 
     public Cell Get(CellType type) => _behaviors[(int)type] ?? EmptyCell.Instance;

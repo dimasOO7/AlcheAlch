@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://pakykrhv0n4j"]
+
+[ext_resource type="Script" uid="uid://d253anpggajsq" path="res://interface/hud/shopPosition/ShopPosition.cs" id="1_h8skv"]
+[ext_resource type="TileSet" uid="uid://dd41qu0tyqyek" path="res://assets/tilesets/basictileset/basictileset.tres" id="2_h4b3y"]
+
+[sub_resource type="Theme" id="Theme_h8skv"]
+default_font_size = 64
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h4b3y"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[node name="shopPosition" type="Control" unique_id=455767132 node_paths=PackedStringArray("icon", "button")]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 128.0
+offset_bottom = 128.0
+mouse_filter = 1
+script = ExtResource("1_h8skv")
+icon = NodePath("TileMapLayer")
+button = NodePath("Button")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1320483540]
+scale = Vector2(4, 4)
+tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 1, 0, 0, 0)
+tile_set = ExtResource("2_h4b3y")
+
+[node name="Button" type="Button" parent="." unique_id=932644162]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_h8skv")
+theme_override_colors/font_color = Color(0, 0.8745098, 0, 1)
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 0)
+theme_override_colors/icon_focus_color = Color(1, 1, 1, 0)
+theme_override_colors/icon_pressed_color = Color(1, 1, 1, 0)
+theme_override_colors/icon_hover_color = Color(1, 1, 1, 0)
+theme_override_colors/icon_hover_pressed_color = Color(1, 1, 1, 0)
+theme_override_colors/icon_disabled_color = Color(1, 1, 1, 0.4)
+theme_override_styles/normal = SubResource("StyleBoxFlat_h4b3y")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_h4b3y")
+theme_override_styles/hover = SubResource("StyleBoxFlat_h4b3y")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_h4b3y")
+theme_override_styles/focus = SubResource("StyleBoxFlat_h4b3y")
+text = "10"

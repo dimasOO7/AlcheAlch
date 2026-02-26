@@ -14,6 +14,13 @@ config/name="AlcheAlch"
 run/main_scene="uid://b3sevisybcmjj"
 config/features=PackedStringArray("4.6", "C#", "GL Compatibility")
 
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
 [dotnet]
 
 project/assembly_name="AlcheAlch"

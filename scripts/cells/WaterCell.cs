@@ -9,6 +9,7 @@ public sealed class WaterCell : Cell
     public WaterCell()
     {
         _textureCord = new Vector2I(1,0);
+        cellActions = new CellAction[]{new cellTransform(CellType.Soil,4,new Vector2I(3,0))};
     }
 
     public override (CellData, int) Execute(CellData self, ReadOnlySpan<CellData> n, Vector2I pos, GridData g)
