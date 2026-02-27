@@ -1,6 +1,9 @@
 using Godot;
 using System;
 
+/// <summary>
+/// кусок вайбкодинга не спрашивай как работает
+/// </summary>
 public partial class Camera : Camera2D
 {
     [ExportGroup("Скорость")]

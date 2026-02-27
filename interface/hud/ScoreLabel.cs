@@ -1,6 +1,9 @@
 using Godot;
 using System;
 
+/// <summary>
+/// индикатор очков
+/// </summary>
 public partial class ScoreLabel : Label
 {
     [Export] public Color positiveColor;

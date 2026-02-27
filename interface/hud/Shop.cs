@@ -1,6 +1,9 @@
 using Godot;
 using System;
 
+/// <summary>
+/// магазин
+/// </summary>
 public partial class Shop : Control
 {
     public GameManager gameManager {get;set;}
@@ -18,7 +21,11 @@ public partial class Shop : Control
         map = gameManager.tileMap;
         Visible = false;
     }
-
+    
+    /// <summary>
+    /// обновить магаз
+    /// </summary>
+    /// <param name="pos">для какой клетки магаз</param>
     public void UpdateShop(Vector2I pos)
     {
         foreach (Node child in container.GetChildren())
@@ -45,11 +52,14 @@ public partial class Shop : Control
         }
     }
 
+    /// <summary>
+    /// скрытие и очистка магаза
+    /// </summary>
     private void CloseShop()
     {
         Visible = false;
         foreach (Node child in container.GetChildren())
-            child.QueueFree(); //очистка магаза
+            child.QueueFree();
     }
 
     public override void _Input(InputEvent @event)

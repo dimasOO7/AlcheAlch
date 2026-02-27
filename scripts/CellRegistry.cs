@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public enum CellType : int //новые клетки сюда добавлять
+public enum CellType : int //новые клетки сюда добавлять и ниже
 {
     Empty = 0,
     Fire = 1,

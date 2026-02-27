@@ -2,6 +2,9 @@ using Godot;
 using System;
 using System.Threading.Tasks.Dataflow;
 
+/// <summary>
+/// 1 позиция в магазе
+/// </summary>
 public partial class ShopPosition : Control
 {
     public CellAction action;

@@ -1,10 +1,13 @@
 using Godot;
 using System;
 
+/// <summary>
+/// игровое поле
+/// </summary>
 public class GridData
 {
     public readonly int Width, Height;
-    public CellData[] Current;
+    public CellData[] Current; // дядя грок сказал так быстрее работать будет
     public CellData[] Next;
 
     public GridData(int width, int height)
@@ -15,12 +18,18 @@ public class GridData
         Next = new CellData[width * height];
     }
 
-    public CellData this[int x, int y]
+    public CellData this[int x, int y] // дядя грок сказал так быстрее работать будет
     {
         get => Current[y * Width + x];
         set => Current[y * Width + x] = value;
     }
 
+    /// <summary>
+    /// получить соседей, первые 4 по сторонам, вторые 4 по диагонали
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <returns>соседи, первые 4 по сторонам, вторые 4 по диагонали</returns>
     public CellData[] GetNeighbors(int x, int y)
     {
         int[] dx = {1,0,-1,0,1,-1,1,-1};

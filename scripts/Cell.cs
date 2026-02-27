@@ -2,6 +2,9 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
+/// <summary>
+/// базовый класс для обработчиков клеток (по совету грока данные передаются через CellData, а не храняться напрямую в объектах класса)
+/// </summary>
 public abstract class Cell
 {
     public CellAction[] cellActions;
@@ -21,13 +24,24 @@ public abstract class Cell
         GridData grid
     );
 
-    public virtual Vector2I GetTextureCord(CellData data) //возвращает корды текстуры (assets/tilesets/basictileset)
+    /// <summary>
+    /// возвращает корды текстуры (assets/tilesets/basictileset)
+    /// </summary>
+    /// <param name="data"></param>
+    /// <returns>возвращает корды текстуры (assets/tilesets/basictileset)</returns>
+    public virtual Vector2I GetTextureCord(CellData data)
     {
         return _textureCord;
     }
 
-
-    public virtual CellAction[] GetAvailableActions(CellData self, Vector2I pos, GridData grid) //как клетку изменить можно
+    /// <summary>
+    /// как клетку можно изменить в данных условиях
+    /// </summary>
+    /// <param name="self"></param>
+    /// <param name="pos"></param>
+    /// <param name="grid"></param>
+    /// <returns>все доступные действия</returns>
+    public virtual CellAction[] GetAvailableActions(CellData self, Vector2I pos, GridData grid)
     {
         List<CellAction> actions = new List<CellAction>();
 
