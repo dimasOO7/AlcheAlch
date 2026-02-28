@@ -163,6 +163,11 @@ public partial class GameManager : Node2D
         RenderTile(pos);
     }
 
+    public bool CanBuy(CellAction action)
+    {
+        return action.Cost <= score || action.Cost < 0;
+    }
+
     /// <summary>
     /// перерисовать всё поле (пиздец не оптимизированная хрень, которую невозможно норм оптимизировать, но для пошага на поле менее 100х100 норм)
     /// </summary>

@@ -39,7 +39,7 @@ public partial class Shop : Control
             ShopPosition shopPos = shopPosition.Instantiate<ShopPosition>();
             container.AddChild(shopPos);
 
-            shopPos.Initialize(action,this);
+            shopPos.Initialize(action,this,gameManager.CanBuy(action));
         }
     }
 
