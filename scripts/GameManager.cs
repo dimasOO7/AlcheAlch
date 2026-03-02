@@ -52,6 +52,7 @@ public partial class GameManager : Node2D
 
     public GridData grid;
     public CellRegistry registry;
+    public RuleRegistry ruleRegistry;
 
     private RandomNumberGenerator rng;
 
@@ -63,6 +64,7 @@ public partial class GameManager : Node2D
 
         grid = new GridData(GridWidth,GridHeight);
         registry = new CellRegistry();
+        ruleRegistry = new RuleRegistry();
 
         rng = new RandomNumberGenerator();
         InitializeRandomGrid();
@@ -98,19 +100,23 @@ public partial class GameManager : Node2D
     private void Tick()
     {
         int delta = 0;
-        for (int y = 0; y < GridHeight; y++)
-        for (int x = 0; x < GridWidth; x++)
+        foreach(SimulationRule rule in ruleRegistry.rules)
         {
-            int idx = y * GridWidth + x;
-            CellData self = grid.Current[idx];
-
-            CellData[] neighbors = grid.GetNeighbors(x,y);
-
-            Cell  behavior = registry.Get(self.Type);
-            var (newState, scoreDelta) = behavior.Execute(self, neighbors, new Vector2I(x, y), grid);
-            grid.Next[idx] = newState;
-            delta += scoreDelta;
+            delta += rule.Execute(grid);
         }
+        // for (int y = 0; y < GridHeight; y++)
+        // for (int x = 0; x < GridWidth; x++)
+        // {
+        //     int idx = y * GridWidth + x;
+        //     CellData self = grid.Current[idx];
+
+        //     CellData[] neighbors = grid.GetNeighbors(x,y);
+
+        //     Cell  behavior = registry.Get(self.Type);
+        //     var (newState, scoreDelta) = behavior.Execute(self, neighbors, new Vector2I(x, y), grid);
+        //     grid.Next[idx] = newState;
+        //     delta += scoreDelta;
+        // }
         (grid.Current, grid.Next) = (grid.Next, grid.Current);
 
         Score += delta;
